@@ -9,6 +9,9 @@ const connectDB = (dbname) => {
 
     db.on('error', () => console.error('Connection Error'));
     db.once('open', () => {
+        db.db.stats((err, data) => {
+          exports.collectionSize = data.objects;
+        })
         console.log(`Connected Successfully to ${dbname} DB`)
     })
   }
