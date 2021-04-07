@@ -15,7 +15,7 @@ router.get("/:page/:limit", function(req, res){
     //If the page is not 1
     const skip = page == 1 ? 0 : limit*(page-1)
 
-    console.log(skip);
+    //console.log(skip);
     storesModel.find({})
         .skip(skip)
         .limit(limit)
