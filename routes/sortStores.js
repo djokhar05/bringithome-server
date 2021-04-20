@@ -58,8 +58,8 @@ router.get("/sortStores", function(req, res){
     //     }
     // }
 
-    console.log(findQuery);
-    console.log(limit, page);
+    // console.log(findQuery);
+    // console.log(limit, page);
 
     storesModel.find(findQuery)
         .skip(skip)
