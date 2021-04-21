@@ -51,16 +51,6 @@ router.get("/sortStores", function(req, res){
         }
     }
 
-    // if(req.query.food != undefined){
-    //     findQuery = {
-    //         ...findQuery,
-    //         "address.area": req.query.area
-    //     }
-    // }
-
-    // console.log(findQuery);
-    // console.log(limit, page);
-
     storesModel.find(findQuery)
         .skip(skip)
         .limit(limit)

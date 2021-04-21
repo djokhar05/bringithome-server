@@ -4,8 +4,21 @@ const storesModel = require("../schemas/storeSchema");
 
 
 router.get("/foodSort", function(req, res){
-    //console.log(req.query);
+    console.log(req.query);
     console.log("Sorting by food...");
+
+
+    var { page, limit } = req.query;
+    //the skip variable is the offset which mongoose has to skip depending on the page the user is on.
+    //First it checks if the page is page 1, if it is, it returns zero so mongoose doesn't skip any data.
+    //If the page is not 1
+    page = Array.isArray(req.query.page) ? req.query.page.pop() : req.query.page;
+    limit = Array.isArray(req.query.limit) ? req.query.page.pop() : req.query.limit;
+
+    limit = parseInt(req.query.limit) || 10;
+
+    const skip = page == 1 ? 0 : limit*(page-1)
+
 
     /*
         We have to build our query dynamically because we do not want to include the area if it isn't provided by the clilent, 
@@ -41,6 +54,8 @@ router.get("/foodSort", function(req, res){
     storesModel.find({
         "$or": orQuery
     })
+    .skip(skip)
+    .limit(limit)
     .then(stores => {
         res.status(200).send({
             stores
